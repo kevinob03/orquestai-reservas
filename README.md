@@ -19,9 +19,9 @@ reservas: id, cliente_id, mesa_id, fecha, hora_inicio, hora_fin, personas, estad
 
 1. En Supabase SQL Editor ejecute `schema.sql`.
 2. Copie `backend/.env.example` como `backend/.env`. Use el URI **Shared Pooler - Session mode** en `DATABASE_URL` y `DB_SSL=true`.
-3. Copie `front/.env.example` como `front/.env`.
+3. Copie `frontend/.env.example` como `frontend/.env`.
 4. Terminal 1: `cd backend && npm run dev`.
-5. Terminal 2: `cd front && npm run dev`.
+5. Terminal 2: `cd frontend && npm run dev`.
 6. En n8n importe `n8n/ORQUESTAI_RESERVAS_FINAL.json`, asigne la credencial DeepSeek y publique el workflow.
 
 ## Endpoints
@@ -53,7 +53,7 @@ Importe `pruebas/OrquestAI.postman_collection.json` y ejecute las carpetas en or
 
 ## Cierre de entrega
 
-- Verifique que `backend/.env` y `front/.env` no se suban al repositorio.
+- Verifique que `backend/.env` y `frontend/.env` no se suban al repositorio.
 - En n8n, publique el workflow y luego use **Download/Export** para guardar el JSON real sin credenciales en `n8n/ORQUESTAI_RESERVAS_FINAL.json`.
 - Durante la demostración muestre: CRUD, un conflicto 409 por horario/solapamiento y una consulta del agente.
 
