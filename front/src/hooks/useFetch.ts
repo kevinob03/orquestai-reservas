@@ -1,0 +1,2 @@
+import { useCallback, useEffect, useState } from 'react';
+export function useFetch<T>(fetcher:()=>Promise<T>){const [data,setData]=useState<T|null>(null),[loading,setLoading]=useState(true),[error,setError]=useState('');const reload=useCallback(async()=>{setLoading(true);setError('');try{setData(await fetcher())}catch(e){setError(e instanceof Error?e.message:'Error')}finally{setLoading(false)}},[fetcher]);useEffect(()=>{void reload()},[reload]);return{data,loading,error,reload}}

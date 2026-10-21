@@ -1,0 +1,19 @@
+{
+  "id": "orquestai-reservas-final",
+  "name": "OrquestAI - Reservas con DeepSeek",
+  "active": false,
+  "settings": { "executionOrder": "v1" },
+  "nodes": [
+    { "id": "webhook", "name": "Webhook", "type": "n8n-nodes-base.webhook", "typeVersion": 2, "position": [0, 0], "parameters": { "httpMethod": "POST", "path": "orquestai-reservas", "responseMode": "responseNode", "options": {} } },
+    { "id": "agent", "name": "AI Agent", "type": "@n8n/n8n-nodes-langchain.agent", "typeVersion": 2, "position": [280, 0], "parameters": { "promptType": "define", "text": "={{ $json.body.mensaje }}", "options": { "systemMessage": "Eres OrquestAI para un restaurante. Antes de sugerir una mesa consulta la herramienta consultar_disponibilidad con fecha YYYY-MM-DD, hora_inicio HH:MM y personas. Si faltan esos datos pregunta solo por el dato faltante. Usa el historial incluido en el mensaje; un si confirma la ultima propuesta y no reinicia la conversación. Responde en español con maximo dos frases." } } },
+    { "id": "deepseek", "name": "DeepSeek Chat Model", "type": "@n8n/n8n-nodes-langchain.lmChatDeepSeek", "typeVersion": 1, "position": [260, 200], "parameters": { "model": "deepseek-flash", "options": {} } },
+    { "id": "availability", "name": "consultar_disponibilidad", "type": "@n8n/n8n-nodes-langchain.toolHttpRequest", "typeVersion": 1, "position": [500, 200], "parameters": { "name": "consultar_disponibilidad", "description": "Consulta las mesas disponibles. Requiere fecha YYYY-MM-DD, hora_inicio HH:MM y personas.", "url": "http://localhost:3000/api/disponibilidad?fecha={fecha}&hora_inicio={hora_inicio}&personas={personas}", "method": "GET", "options": {} } },
+    { "id": "response", "name": "Respond to Webhook", "type": "n8n-nodes-base.respondToWebhook", "typeVersion": 1.4, "position": [580, 0], "parameters": { "respondWith": "json", "responseBody": "={{ JSON.stringify({ ok: true, data: { respuesta: $json.output }, error: null }) }}", "options": {} } }
+  ],
+  "connections": {
+    "Webhook": { "main": [[{ "node": "AI Agent", "type": "main", "index": 0 }]] },
+    "DeepSeek Chat Model": { "ai_languageModel": [[{ "node": "AI Agent", "type": "ai_languageModel", "index": 0 }]] },
+    "consultar_disponibilidad": { "ai_tool": [[{ "node": "AI Agent", "type": "ai_tool", "index": 0 }]] },
+    "AI Agent": { "main": [[{ "node": "Respond to Webhook", "type": "main", "index": 0 }]] }
+  }
+}

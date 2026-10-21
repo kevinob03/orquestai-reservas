@@ -1,0 +1,11 @@
+{
+  "info": { "name": "OrquestAI Reservas - pruebas", "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json" },
+  "item": [
+    { "name": "200 Listar mesas", "request": { "method": "GET", "url": "http://localhost:3000/api/mesas" } },
+    { "name": "201 Crear cliente", "request": { "method": "POST", "header": [{"key":"Content-Type","value":"application/json"}], "body": { "mode": "raw", "raw": "{\"nombre\":\"Cliente Prueba\",\"telefono\":\"8888-9999\"}" }, "url": "http://localhost:3000/api/clientes" } },
+    { "name": "400 Mesa inválida", "request": { "method": "POST", "header": [{"key":"Content-Type","value":"application/json"}], "body": { "mode": "raw", "raw": "{\"numero\":0,\"capacidad\":0}" }, "url": "http://localhost:3000/api/mesas" } },
+    { "name": "404 Cliente inexistente", "request": { "method": "GET", "url": "http://localhost:3000/api/clientes/999999" } },
+    { "name": "201 Crear reserva base", "request": { "method": "POST", "header": [{"key":"Content-Type","value":"application/json"}], "body": { "mode": "raw", "raw": "{\"cliente_id\":1,\"mesa_id\":1,\"fecha\":\"2026-12-29\",\"hora_inicio\":\"13:00\",\"personas\":2}" }, "url": "http://localhost:3000/api/reservas" } },
+    { "name": "409 Reserva solapada", "request": { "method": "POST", "header": [{"key":"Content-Type","value":"application/json"}], "body": { "mode": "raw", "raw": "{\"cliente_id\":1,\"mesa_id\":1,\"fecha\":\"2026-12-29\",\"hora_inicio\":\"14:00\",\"personas\":2}" }, "url": "http://localhost:3000/api/reservas" } }
+  ]
+}
