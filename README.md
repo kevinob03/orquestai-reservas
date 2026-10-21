@@ -49,7 +49,13 @@ reservas: id, cliente_id, mesa_id, fecha, hora_inicio, hora_fin, personas, estad
 
 ## Pruebas
 
-Importe `pruebas/OrquestAI.postman_collection.json`. Incluye casos 200, 201, 400, 404 y 409.
+Importe `pruebas/OrquestAI.postman_collection.json` y ejecute las carpetas en orden. Incluye CRUD de mesas y clientes, disponibilidad, resumen y los casos 400, 404 y 409. La evidencia para la entrega es la colección junto con una captura de su ejecución.
+
+## Cierre de entrega
+
+- Verifique que `backend/.env` y `front/.env` no se suban al repositorio.
+- En n8n, publique el workflow y luego use **Download/Export** para guardar el JSON real sin credenciales en `n8n/ORQUESTAI_RESERVAS_FINAL.json`.
+- Durante la demostración muestre: CRUD, un conflicto 409 por horario/solapamiento y una consulta del agente.
 
 ## n8n
 
